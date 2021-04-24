@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
 namespace AuthenticationService.DTOs
 {
     public class RegisterInformation
@@ -18,6 +17,6 @@ namespace AuthenticationService.DTOs
         [Required]
         public string SchoolName{ get; set; }
         [Required]
-        public string Password { get; set; }
+        public string Password { get; set;}
     }
 }

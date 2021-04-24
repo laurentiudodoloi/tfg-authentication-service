@@ -2,6 +2,7 @@
 using AuthenticationService.Entities;
 using AuthenticationService.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace AuthenticationService.Controllers
 {
@@ -16,15 +17,15 @@ namespace AuthenticationService.Controllers
         }
 
         [HttpPost("register")]
-        public IActionResult CreateUser([FromBody] RegisterInformation registerInformation)
+        public async Task<IActionResult> CreateUser([FromBody] RegisterInformation registerInformation)
         {
-            User user = _userRepository.GetUserByEmail(registerInformation.Email);
+            User user = await _userRepository.GetUserByEmail(registerInformation.Email);
             if (user != null)
             {
                 return BadRequest("The account already exists.");
             }
 
-            user = _userRepository.CreateUser(registerInformation);
+            user = await _userRepository.CreateUser(registerInformation);
 
             if (user != null)
             {

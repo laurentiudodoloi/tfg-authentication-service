@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using AuthenticationService.Data;
 using AuthenticationService.Repositories;
 using Microsoft.EntityFrameworkCore;
+using AuthenticationService.Helpers;
 
 namespace User_info_API
 {
@@ -34,7 +35,7 @@ namespace User_info_API
             services.AddDbContext<DataContext>(options => {
                 options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
             });
-
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
             services.AddScoped<IUserRepository, UserRepository>();
         }
 
