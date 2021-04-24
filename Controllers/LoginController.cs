@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using Microsoft.AspNetCore.Http;
-using AuthenticationService.Data;
-using AuthenticationService.Entities;
 using AuthenticationService.Repositories;
 using AuthenticationService.DTOs;
+using System.Threading.Tasks;
 
 namespace AuthenticationService.Controllers
 {
@@ -19,15 +16,15 @@ namespace AuthenticationService.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Auth([FromBody] LoginInformation loginInformation)
+        public async Task<IActionResult> Auth([FromBody] LoginInformation loginInformation)
         {
-            var user = _userRepository.GetUserByCredentials(loginInformation);
-            if (user == null)
+            var authenticatedUser = await _userRepository.GetUserByCredentials(loginInformation);
+            if (authenticatedUser == null)
             {
                 return NotFound("Invalid email or password.");
             }
 
-            return Ok(user);
+            return Ok(authenticatedUser);
         }
     }
 }

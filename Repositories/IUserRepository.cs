@@ -1,12 +1,13 @@
 ﻿using AuthenticationService.DTOs;
 using AuthenticationService.Entities;
+using System.Threading.Tasks;
 
 namespace AuthenticationService.Repositories
 {
     public interface IUserRepository
     {
-        public User CreateUser(RegisterInformation registerInformation);
-        public User GetUserByCredentials(LoginInformation loginInformation);
-        public User GetUserByEmail(string email);
+        public Task<User> CreateUser(RegisterInformation registerInformation);
+        public Task<AuthenticatedUser> GetUserByCredentials(LoginInformation loginInformation);
+        public Task<User> GetUserByEmail(string email);
     }
 }
