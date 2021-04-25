@@ -2,6 +2,7 @@
 using AuthenticationService.DTOs;
 using AuthenticationService.Entities;
 using AuthenticationService.Helpers;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -16,12 +17,11 @@ namespace AuthenticationService.Repositories
     public class UserRepository : IUserRepository
     {
         private DataContext _context;
-        private AppSettings _appSettings; 
-        public UserRepository(DataContext context)
+        private IConfiguration _configuration;
+        public UserRepository(DataContext context, IConfiguration configuration)
         {
             _context = context;
-            _appSettings.Secret = "OUR SECRET FOR JWT - DONT CHANGE THIS STRING"; 
-            // should be read from appsettings.json 
+            _configuration = configuration;
         }
 
         public async Task<User> CreateUser(RegisterInformation registerInformation)
@@ -41,13 +41,13 @@ namespace AuthenticationService.Repositories
                 UpdatedDate = DateTime.Now
             };
 
-            _context.Users.Add(user);
+            await _context.Users.AddAsync(user);
             _context.SaveChanges();
 
             return user;
         }
 
-        public async Task<AuthenticatedUser> GetUserByCredentials(LoginInformation loginInformation)
+        public Task<AuthenticatedUser> GetUserByCredentials(LoginInformation loginInformation)
         {
             string encriptedPassword = EncryptPassword(loginInformation.Password);
 
@@ -55,15 +55,18 @@ namespace AuthenticationService.Repositories
                 u.Email.Equals(loginInformation.Email) && u.Password.Equals(encriptedPassword)
             );
             if (user == null)
+            {
                 return null;
+            }
+
             var token = generateJwtToken(user);
-            //return user;
-            return new AuthenticatedUser(user, token);
+
+            return Task.FromResult(new AuthenticatedUser(user, token));
         }
 
-        public async Task<User> GetUserByEmail(string email)
+        public Task<User> GetUserByEmail(string email)
         {
-            return _context.Users.FirstOrDefault(u => u.Email.Equals(email));
+            return Task.FromResult(_context.Users.FirstOrDefault(u => u.Email.Equals(email)));
         }
 
         private string EncryptPassword(string input)
@@ -81,9 +84,8 @@ namespace AuthenticationService.Repositories
         }
         private string generateJwtToken(User user)
         {
-
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var key = Encoding.ASCII.GetBytes(_configuration.GetSection("AuthSettings")["Secret"]);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
