@@ -30,12 +30,7 @@ namespace AuthenticationService.Repositories
 
             var user = new User
             {
-                FirstName = registerInformation.FirstName,
-                LastName = registerInformation.LastName,
                 Email = registerInformation.Email,
-                PhoneNumber = registerInformation.PhoneNumber,
-                Address = registerInformation.Address,
-                SchoolName = registerInformation.SchoolName,
                 Password = encriptedPassword,
                 CreatedDate = DateTime.Now,
                 UpdatedDate = DateTime.Now
