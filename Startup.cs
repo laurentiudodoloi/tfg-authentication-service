@@ -7,7 +7,6 @@ using Microsoft.OpenApi.Models;
 using AuthenticationService.Data;
 using AuthenticationService.Repositories;
 using Microsoft.EntityFrameworkCore;
-using AuthenticationService.Helpers;
 
 namespace AuthenticationService
 {

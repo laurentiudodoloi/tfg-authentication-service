@@ -16,15 +16,19 @@ namespace AuthenticationService.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Auth([FromBody] LoginInformation loginInformation)
+        public async Task<IActionResult> Login([FromBody] LoginInformation loginInformation)
         {
-            var authenticatedUser = await _userRepository.GetUserByCredentials(loginInformation);
-            if (authenticatedUser == null)
+            var request = _userRepository.GetUserByCredentials(loginInformation);
+            if (request == null)
             {
-                return NotFound("Invalid email or password.");
+                return NotFound(new
+                {
+                    Success = false,
+                    Message = "Invalid email or password"
+                });
             }
 
-            return Ok(authenticatedUser);
+            return Ok(await request);
         }
     }
 }

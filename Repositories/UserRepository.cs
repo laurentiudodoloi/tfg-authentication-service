@@ -3,6 +3,7 @@ using AuthenticationService.DTOs;
 using AuthenticationService.Entities;
 using AuthenticationService.Helpers;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -18,8 +19,11 @@ namespace AuthenticationService.Repositories
     {
         private DataContext _context;
         private IConfiguration _configuration;
-        public UserRepository(DataContext context, IConfiguration configuration)
+
+        private readonly ILogger _logger;
+        public UserRepository(DataContext context, IConfiguration configuration, ILogger<object> logger)
         {
+            _logger = logger;
             _context = context;
             _configuration = configuration;
         }
@@ -45,12 +49,14 @@ namespace AuthenticationService.Repositories
         public Task<AuthenticatedUser> GetUserByCredentials(LoginInformation loginInformation)
         {
             string encriptedPassword = EncryptPassword(loginInformation.Password);
-
-            User user = _context.Users.FirstOrDefault(u => 
+            User user = _context.Users.FirstOrDefault(u =>
                 u.Email.Equals(loginInformation.Email) && u.Password.Equals(encriptedPassword)
             );
+
+            _logger.LogInformation("---> Here-1");
             if (user == null)
             {
+                _logger.LogInformation("---> YES");
                 return null;
             }
 
@@ -80,7 +86,7 @@ namespace AuthenticationService.Repositories
         private string generateJwtToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_configuration.GetSection("AuthSettings")["Secret"]);
+            var key = Encoding.ASCII.GetBytes(_configuration.GetValue<string>("AuthSettings:Secret"));
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
@@ -88,6 +94,7 @@ namespace AuthenticationService.Repositories
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
+
             return tokenHandler.WriteToken(token);
         }
     }

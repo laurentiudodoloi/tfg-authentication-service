@@ -6,8 +6,8 @@ namespace AuthenticationService.Repositories
 {
     public interface IUserRepository
     {
-        public Task<User> CreateUser(RegisterInformation registerInformation);
-        public Task<AuthenticatedUser> GetUserByCredentials(LoginInformation loginInformation);
-        public Task<User> GetUserByEmail(string email);
+        Task<User> CreateUser(RegisterInformation registerInformation);
+        Task<AuthenticatedUser> GetUserByCredentials(LoginInformation loginInformation);
+        Task<User> GetUserByEmail(string email);
     }
 }

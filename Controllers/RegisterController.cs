@@ -22,14 +22,20 @@ namespace AuthenticationService.Controllers
             User user = await _userRepository.GetUserByEmail(registerInformation.Email);
             if (user != null)
             {
-                return BadRequest("The account already exists.");
+                return BadRequest(new {
+                    Success = false,
+                    Message = "The account already exists"
+                });
             }
 
             user = await _userRepository.CreateUser(registerInformation);
 
             if (user != null)
             {
-                return Created(nameof(User), "Account has been created.");
+                return Created(nameof(User), new {
+                    Success = true,
+                    Message = "Account has been created."
+                });
             }
 
             return StatusCode(503);
