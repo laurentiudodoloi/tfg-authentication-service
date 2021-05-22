@@ -34,7 +34,8 @@ namespace AuthenticationService.Controllers
             {
                 return Created(nameof(User), new {
                     Success = true,
-                    Message = "Account has been created."
+                    Message = "Account has been created.",
+                    Id = user.Id
                 });
             }
 
