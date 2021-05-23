@@ -34,6 +34,7 @@ namespace AuthenticationService.Repositories
 
             var user = new User
             {
+                Id = Guid.NewGuid(),
                 Email = registerInformation.Email,
                 Password = encriptedPassword,
                 CreatedDate = DateTime.Now,
