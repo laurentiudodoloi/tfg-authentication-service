@@ -1,0 +1,22 @@
+r
+iC:\Users\eucar\OneDrive\Desktop\Servicii dotnet\tfg-authentication-service\Controllers\LoginController.csutf-8u
+lC:\Users\eucar\OneDrive\Desktop\Servicii dotnet\tfg-authentication-service\Controllers\RegisterController.csutf-8g
+^C:\Users\eucar\OneDrive\Desktop\Servicii dotnet\tfg-authentication-service\Data\DataContext.csutf-8m
+dC:\Users\eucar\OneDrive\Desktop\Servicii dotnet\tfg-authentication-service\DTOs\AuthenticatedUser.csutf-8l
+cC:\Users\eucar\OneDrive\Desktop\Servicii dotnet\tfg-authentication-service\DTOs\LoginInformation.csutf-8o
+fC:\Users\eucar\OneDrive\Desktop\Servicii dotnet\tfg-authentication-service\DTOs\RegisterInformation.csutf-8i
+`C:\Users\eucar\OneDrive\Desktop\Servicii dotnet\tfg-authentication-service\Entities\BaseModel.csutf-8d
+[C:\Users\eucar\OneDrive\Desktop\Servicii dotnet\tfg-authentication-service\Entities\User.csutf-8q
+hC:\Users\eucar\OneDrive\Desktop\Servicii dotnet\tfg-authentication-service\Helpers\AuthorizeAttribute.csutf-8Å
+xC:\Users\eucar\OneDrive\Desktop\Servicii dotnet\tfg-authentication-service\Migrations\20210412100935_InitialMigration.csutf-8ç
+ÅC:\Users\eucar\OneDrive\Desktop\Servicii dotnet\tfg-authentication-service\Migrations\20210412100935_InitialMigration.Designer.csutf-8x
+oC:\Users\eucar\OneDrive\Desktop\Servicii dotnet\tfg-authentication-service\Migrations\20210426195721_Updates.csutf-8É
+xC:\Users\eucar\OneDrive\Desktop\Servicii dotnet\tfg-authentication-service\Migrations\20210426195721_Updates.Designer.csutf-8|
+qC:\Users\eucar\OneDrive\Desktop\Servicii dotnet\tfg-authentication-service\Migrations\DataContextModelSnapshot.csutf-8^
+UC:\Users\eucar\OneDrive\Desktop\Servicii dotnet\tfg-authentication-service\Program.csutf-8s
+jC:\Users\eucar\OneDrive\Desktop\Servicii dotnet\tfg-authentication-service\Repositories\IUserRepository.csutf-8r
+iC:\Users\eucar\OneDrive\Desktop\Servicii dotnet\tfg-authentication-service\Repositories\UserRepository.csutf-8^
+UC:\Users\eucar\OneDrive\Desktop\Servicii dotnet\tfg-authentication-service\Startup.csutf-8ñ
+äC:\Users\eucar\OneDrive\Desktop\Servicii dotnet\tfg-authentication-service\obj\Debug\net5.0\.NETCoreApp,Version=v5.0.AssemblyAttributes.csutf-8ç
+ÅC:\Users\eucar\OneDrive\Desktop\Servicii dotnet\tfg-authentication-service\obj\Debug\net5.0\AuthenticationService.AssemblyInfo.csutf-8†
+îC:\Users\eucar\OneDrive\Desktop\Servicii dotnet\tfg-authentication-service\obj\Debug\net5.0\AuthenticationService.MvcApplicationPartsAssemblyInfo.csutf-8

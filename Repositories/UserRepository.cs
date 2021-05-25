@@ -17,8 +17,8 @@ namespace AuthenticationService.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private DataContext _context;
-        private IConfiguration _configuration;
+        private readonly DataContext _context;
+        private readonly IConfiguration _configuration;
 
         private readonly ILogger _logger;
         public UserRepository(DataContext context, IConfiguration configuration, ILogger<object> logger)
@@ -30,7 +30,7 @@ namespace AuthenticationService.Repositories
 
         public async Task<User> CreateUser(RegisterInformation registerInformation)
         {
-            string encriptedPassword = this.EncryptPassword(registerInformation.Password);
+            string encriptedPassword = EncryptPassword(registerInformation.Password);
 
             var user = new User
             {
@@ -58,7 +58,7 @@ namespace AuthenticationService.Repositories
             if (user == null)
             {
                 _logger.LogInformation("---> YES");
-                return null;
+                return Task.FromResult<AuthenticatedUser>(null);
             }
 
             var token = generateJwtToken(user);
@@ -71,7 +71,7 @@ namespace AuthenticationService.Repositories
             return Task.FromResult(_context.Users.FirstOrDefault(u => u.Email.Equals(email)));
         }
 
-        private string EncryptPassword(string input)
+        private static string EncryptPassword(string input)
         {
             using var hashAlgorithm = SHA256.Create();
             var data = hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(input));
